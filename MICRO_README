@@ -1,0 +1,64 @@
+Baseline FF changes:
+1. Scan FF
+In logic.cc line 238, we double the DFF area computation, In line 279 & 281, we double the leakage power (both gate leakage and subthreshold leakage) to construct a scan DFF. We will use the scan DFF as the baseline for all processor models. (Real scan FFs may have better technqiues to minimize both gate and subthreshold leakage power but we are not considering those techniques in the current model) 
+
+
+2. BISER FF (always on)
+Area: 1.17X of the Scan FF
+Total power (both static and dynamic): 2.43X vs. scan FF --> logic.cc line 271, 274, 275, 276, 279, 281
+
+---------------------------------------------------
+BB-level (coarse grained) resilience protection
+1. In logic.cc line 947, we add 100 more number of decoder signals to capture the additional hardware complexity required to decode the newly introduced instrucitons (ds_branches, and the protect-next-bb insts)
+
+2. Currently we add 1 byte to the BTB to capture whehter next BB (on the taken and not-taken path) should be protected or not (actually only 2 additional bits are needed; adding 1 byte to avoid modificaiotn to the existing mcpat model)
+
+3. Pseudo code for coarse grained resilience control pipeline
+% Actions invovles: 
+%1. on BTB hit, turn on/off resilience enable signal in the IF stage;
+%2. on direction mispredition, update the resilience enable signals in the IF stage accordingly
+%3. On BTB miss mispredition, change the flush logic so it does not flush the inst in the delay slot
+% No need to modify logic for updating BTB (just need wider datapath to include the reislience info which is accounted for in decoder logic and BTB entry increase)
+% Resilience enable signals will have outputs directly chained to the inputs of the next stage 
+reg next_bb_info;
+always @ posedge(clk) {
+  if(btb_hit)
+    if(predict_correct)
+      next_bb_info <= get_predicted_btb_info();
+    else
+      next_bb_info <= get_correct_btb_info(); --> Can save both bit vectors such that no need to read BTB again.
+  else if (opcode_EX == NEW_OP)
+    next_bb_info <= get_inst_EX[bit-vector];
+  else
+    if(predict_incorrect)
+      if(MEM_stage == delay)
+        Do not flush EX --> Use the old flush signal
+      else
+        flush EX   --> Just add one MUX @ EX
+      Update BTB (Logics of which are incorporated in extending BTB)
+    else
+      next_bb_info <= next_bb_info;
+
+|		|	  |		   |	  |			|	  |     |
+| Fetch | --> | Decode | -->  | Execute | --> | Mem | --> ...
+|		| 	  |		   | 	  |			|	  |		|
+												 |
+												 |
+                                   Flush --|\    |
+										   | |---|
+									   0 --|/|
+											 |
+											 |
+								    Delay ---|
+
+next_bb_info --> ResEN_IF --> ResEN_ID --> ResEN_...
+ResEN_IF_delay always equals ResEN_ID
+We did not handle stall condition at the boundary in this pseudo-code.
+The overhead is mostly FFs --> 2 for each pipeline stages + next_bb_info in IF. Conbinational overhead are a bunch of MUXes --> In IFU, add 20 NAND gates (both area and power) to represent MUXes.
+
+---------------------------------------------
+Instruciion-level (fine grained) resilience protection
+1. In logic.cc line 947, we add 100 more number of decoder signals to capture the additional hardware complexity required to decode the newly introduced instrucitons (ds_branches, and the protect-next-bb insts)
+
+2. In logic.cc line 238, we double the DFF area computation, In line 279 & 281, we double the leakage power to construct a scan DFF.
+

@@ -1,0 +1,116 @@
+16,23c16,23
+<   Area = 410.507 mm^2
+<   Peak Power = 134.938 W
+<   Total Leakage = 36.8319 W
+<   Peak Dynamic = 98.1063 W
+<   Subthreshold Leakage = 35.1632 W
+<   Subthreshold Leakage with power gating = 16.3977 W
+<   Gate Leakage = 1.66871 W
+<   Runtime Dynamic = 72.9199 W
+---
+>   Area = 418.266 mm^2
+>   Peak Power = 136.454 W
+>   Total Leakage = 38.2228 W
+>   Peak Dynamic = 98.2313 W
+>   Subthreshold Leakage = 36.4784 W
+>   Subthreshold Leakage with power gating = 16.9185 W
+>   Gate Leakage = 1.74434 W
+>   Runtime Dynamic = 73.043 W
+27,32c27,32
+<     Area = 111.713 mm^2
+<     Peak Dynamic = 78.5978 W
+<     Subthreshold Leakage = 24.1131 W
+<     Subthreshold Leakage with power gating = 10.3006 W
+<     Gate Leakage = 1.49026 W
+<     Runtime Dynamic = 55.7891 W
+---
+>     Area = 119.419 mm^2
+>     Peak Dynamic = 78.6015 W
+>     Subthreshold Leakage = 25.4276 W
+>     Subthreshold Leakage with power gating = 10.8211 W
+>     Gate Leakage = 1.56577 W
+>     Runtime Dynamic = 55.791 W
+45,50c45,50
+<     Area = 5.51364 mm^2
+<     Peak Dynamic = 12.807 W
+<     Subthreshold Leakage = 0.0678232 W
+<     Subthreshold Leakage with power gating = 0.0305204 W
+<     Gate Leakage = 0.0126787 W
+<     Runtime Dynamic = 12.807 W
+---
+>     Area = 5.56585 mm^2
+>     Peak Dynamic = 12.9282 W
+>     Subthreshold Leakage = 0.0684654 W
+>     Subthreshold Leakage with power gating = 0.0308095 W
+>     Gate Leakage = 0.0127988 W
+>     Runtime Dynamic = 12.9282 W
+54,59c54,59
+<       Area = 55.8565 mm^2
+<       Peak Dynamic = 39.2989 W
+<       Subthreshold Leakage = 12.0565 W
+<       Subthreshold Leakage with power gating = 5.15028 W
+<       Gate Leakage = 0.74513 W
+<       Runtime Dynamic = 55.7891 W
+---
+>       Area = 59.7097 mm^2
+>       Peak Dynamic = 39.3007 W
+>       Subthreshold Leakage = 12.7138 W
+>       Subthreshold Leakage with power gating = 5.41056 W
+>       Gate Leakage = 0.782887 W
+>       Runtime Dynamic = 55.791 W
+62,67c62,67
+<         Area = 8.46345 mm^2
+<         Peak Dynamic = 5.64559 W
+<         Subthreshold Leakage = 1.25249 W
+<         Subthreshold Leakage with power gating = 0.550703 W
+<         Gate Leakage = 0.0774849 W
+<         Runtime Dynamic = 8.36273 W
+---
+>         Area = 12.3166 mm^2
+>         Peak Dynamic = 5.64744 W
+>         Subthreshold Leakage = 1.90977 W
+>         Subthreshold Leakage with power gating = 0.810988 W
+>         Gate Leakage = 0.115241 W
+>         Runtime Dynamic = 8.36458 W
+143,148c143,148
+<             Area = 3.87654 mm^2
+<             Peak Dynamic = 2.26389 W
+<             Subthreshold Leakage = 0.659852 W
+<             Subthreshold Leakage with power gating = 0.261301 W
+<             Gate Leakage = 0.0381395 W
+<             Runtime Dynamic = 2.26389 W
+---
+>             Area = 7.72971 mm^2
+>             Peak Dynamic = 2.26574 W
+>             Subthreshold Leakage = 1.31714 W
+>             Subthreshold Leakage with power gating = 0.521586 W
+>             Gate Leakage = 0.0758961 W
+>             Runtime Dynamic = 2.26574 W
+375,380c375,380
+<       Area = 5.51364 mm^2
+<       Peak Dynamic = 12.807 W
+<       Subthreshold Leakage = 0.0678232 W
+<       Subthreshold Leakage with power gating = 0.0305204 W
+<       Gate Leakage = 0.0126787 W
+<       Runtime Dynamic = 12.807 W
+---
+>       Area = 5.56585 mm^2
+>       Peak Dynamic = 12.9282 W
+>       Subthreshold Leakage = 0.0684654 W
+>       Subthreshold Leakage with power gating = 0.0308095 W
+>       Gate Leakage = 0.0127988 W
+>       Runtime Dynamic = 12.9282 W
+383,388c383,388
+<         Area = 5.51364 mm^2
+<         Peak Dynamic = 12.807 W
+<         Subthreshold Leakage = 0.0678232 W
+<         Subthreshold Leakage with power gating = 0.0305204 W
+<         Gate Leakage = 0.0126787 W
+<         Runtime Dynamic = 12.807 W
+---
+>         Area = 5.56585 mm^2
+>         Peak Dynamic = 12.9282 W
+>         Subthreshold Leakage = 0.0684654 W
+>         Subthreshold Leakage with power gating = 0.0308095 W
+>         Gate Leakage = 0.0127988 W
+>         Runtime Dynamic = 12.9282 W

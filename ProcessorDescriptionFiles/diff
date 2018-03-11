@@ -1,0 +1,473 @@
+5,8c5,6
+< 		<!--Duty cycles in this file are set according to "ARM MPcore
+< 			ARchitecture performance Enhancement" in MPF Japan 2008 -->
+< 		<param name="number_of_cores" value="2"/>
+< 		<param name="number_of_L1Directories" value="2"/>
+---
+> 		<param name="number_of_cores" value="8"/>
+> 		<param name="number_of_L1Directories" value="4"/>
+10,11c8
+< 		<param name="number_of_L2s" value="0"/> <!-- This number means how many L2 clusters in each cluster there can be multiple banks/ports -->
+< 		<param name="Private_L2" value="0"/><!--1 Private, 0 shared/coherent -->
+---
+> 		<param name="number_of_L2s" value="4"/> <!-- This number means how many L2 clusters in each cluster there can be multiple banks/ports -->
+21,23c18,20
+< 		<param name="core_tech_node" value="40"/><!-- nm -->
+< 		<param name="target_core_clockrate" value="2000"/><!--MHz -->
+< 		<param name="temperature" value="340"/> <!-- Kelvin -->
+---
+> 		<param name="core_tech_node" value="90"/><!-- nm -->
+> 		<param name="target_core_clockrate" value="1200"/><!--MHz -->
+> 		<param name="temperature" value="380"/> <!-- Kelvin -->
+25,26c22,23
+< 		<param name="interconnect_projection_type" value="1"/><!--0: aggressive wire technology; 1: conservative wire technology -->
+< 		<param name="device_type" value="2"/><!--0: HP(High Performance Type); 1: LSTP(Low standby power) 2: LOP (Low Operating Power)  -->
+---
+> 		<param name="interconnect_projection_type" value="0"/><!--0: aggressive wire technology; 1: conservative wire technology -->
+> 		<param name="device_type" value="0"/><!--0: HP(High Performance Type); 1: LSTP(Low standby power) 2: LOP (Low Operating Power)  -->
+28,32c25,28
+< 		<param name="Embedded" value="1"/><!-- Embedded processor like ARM or general purpose processors?  -->
+< 		<param name="opt_clockrate" value="1"/>
+< 		<param name="machine_bits" value="32"/>
+< 		<param name="virtual_address_width" value="32"/>
+< 		<param name="physical_address_width" value="32"/>
+---
+> 		<param name="power_gating" value="1"/><!-- 0 not enabled; 1 enabled -->
+> 		<param name="machine_bits" value="64"/>
+> 		<param name="virtual_address_width" value="64"/>
+> 		<param name="physical_address_width" value="52"/>
+34,35d29
+< 		<!-- address width determines the tag_width in Cache, LSQ and buffers in cache controller 
+< 			default value is machine_bits, if not set --> 
+44,46c38,39
+< 			<param name="clock_rate" value="2000"/>
+< 			<!-- for cores with unknown timing, set to 0 to force off the opt flag -->
+< 			<param name="opt_local" value="0"/>
+---
+> 			<param name="clock_rate" value="1200"/>
+> 			<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+48,53c41,46
+< 			<param name="opcode_width" value="7"/>
+< 			<param name="x86" value="0"/>
+< 			<param name="micro_opcode_width" value="8"/>
+< 			<param name="machine_type" value="0"/>
+< 			<!-- inorder/OoO; 1 inorder; 0 OOO-->
+< 			<param name="number_hardware_threads" value="1"/>
+---
+> 			<param name="opcode_width" value="9"/>
+> 			<!-- address width determines the tag_width in Cache, LSQ and buffers in cache controller 
+> 			default value is machine_bits, if not set --> 
+> 			<param name="machine_type" value="1"/><!-- 1 inorder; 0 OOO-->
+> 			<!-- inorder/OoO -->
+> 			<param name="number_hardware_threads" value="4"/>
+57c50
+< 			<param name="fetch_width" value="2"/>
+---
+> 			<param name="fetch_width" value="1"/>
+60c53
+< 			<param name="decode_width" value="2"/>
+---
+> 			<param name="decode_width" value="1"/>
+63,64c56
+< 			<param name="issue_width" value="4"/>
+< 			<param name="peak_issue_width" value="7"/>
+---
+> 			<param name="issue_width" value="1"/>
+67c59
+< 			<param name="commit_width" value="4"/>
+---
+> 			<param name="commit_width" value="1"/>
+70c62
+< 			<param name="prediction_width" value="1"/> 
+---
+> 			<param name="prediction_width" value="0"/> 
+76c68
+< 			<param name="pipeline_depth" value="8,8"/>
+---
+> 			<param name="pipeline_depth" value="6,6"/>
+79c71
+< 			<param name="ALU_per_core" value="3"/>
+---
+> 			<param name="ALU_per_core" value="1"/>
+83c75
+< 			<param name="FPU_per_core" value="1"/>		
+---
+> 			<param name="FPU_per_core" value="0.125"/>		
+85c77
+< 			<param name="instruction_buffer_size" value="32"/>
+---
+> 			<param name="instruction_buffer_size" value="16"/>
+90,92c82,83
+< 			<param name="instruction_window_size" value="20"/>
+< 			<param name="fp_instruction_window_size" value="15"/>
+< 			<!-- Numbers need to be confirmed -->
+---
+> 			<param name="instruction_window_size" value="16"/>
+> 			<param name="fp_instruction_window_size" value="16"/>
+94c85
+< 			<param name="ROB_size" value="128"/>
+---
+> 			<param name="ROB_size" value="80"/>
+101,102c92,93
+< 			<param name="phy_Regs_IRF_size" value="64"/>
+< 			<param name="phy_Regs_FRF_size" value="64"/>
+---
+> 			<param name="phy_Regs_IRF_size" value="80"/>
+> 			<param name="phy_Regs_FRF_size" value="80"/>
+107,113c98,101
+< 			CAM-based scheme have the valid bit in the data field of the CAM -->
+< 			<param name="checkpoint_depth" value="1"/>
+< 			<!-- RAM and CAM RAT contains checkpoints, checkpoint_depth=# of in_flight speculations;
+< 			RAM-based RAT should not have more than 4 GCs (e.g., MIPS R10000). 
+< 			McPAT assumes the exsistance of RRAT when the RAM-RAT having no GCs (e.g., Netburst)
+< 			CAM-based RAT should have at least 1 GC and can have more than 8 GCs. -->
+< 			<param name="register_windows_size" value="0"/>
+---
+> 			CAM-based scheme have the valid bit in the data field of the CAM 
+> 			both RAM and CAM need RAM-based checkpoint table, checkpoint_depth=# of in_flight instructions;
+> 			Detailed RAT Implementation see TR -->
+> 			<param name="register_windows_size" value="8"/>
+119c107
+< 			<param name="store_buffer_size" value="4"/>
+---
+> 			<param name="store_buffer_size" value="32"/>
+121,122c109,110
+< 			<param name="load_buffer_size" value="0"/>	
+< 			<!-- number of ports refer to sustain-able concurrent memory accesses --> 
+---
+> 			<param name="load_buffer_size" value="32"/>	
+> 			<!-- number of ports refer to sustainable concurrent memory accesses --> 
+127c115
+< 			<param name="RAS_size" value="4"/>						
+---
+> 			<param name="RAS_size" value="32"/>						
+130,133c118,121
+< 			<stat name="total_instructions" value="400000"/>
+< 			<stat name="int_instructions" value="200000"/>
+< 			<stat name="fp_instructions" value="100000"/>
+< 			<stat name="branch_instructions" value="100000"/>
+---
+> 			<stat name="total_instructions" value="800000"/>
+> 			<stat name="int_instructions" value="600000"/>
+> 			<stat name="fp_instructions" value="20000"/>
+> 			<stat name="branch_instructions" value="0"/>
+135,140c123,128
+< 			<stat name="load_instructions" value="0"/>
+< 			<stat name="store_instructions" value="50000"/>
+< 			<stat name="committed_instructions" value="400000"/>
+< 			<stat name="committed_int_instructions" value="200000"/>
+< 			<stat name="committed_fp_instructions" value="100000"/>
+< 			<stat name="pipeline_duty_cycle" value="1"/><!--<=1, runtime_ipc/peak_ipc; averaged for all cores if homogeneous -->
+---
+> 			<stat name="load_instructions" value="100000"/>
+> 			<stat name="store_instructions" value="100000"/>
+> 			<stat name="committed_instructions" value="800000"/>
+> 			<stat name="committed_int_instructions" value="600000"/>
+> 			<stat name="committed_fp_instructions" value="20000"/>
+> 			<stat name="pipeline_duty_cycle" value="0.6"/><!--<=1, runtime_ipc/peak_ipc; averaged for all cores if homogeneous -->
+150,151c138,139
+< 			<stat name="ROB_reads" value="400000"/>
+< 			<stat name="ROB_writes" value="400000"/>
+---
+> 			<stat name="ROB_reads" value="263886"/>
+> 			<stat name="ROB_writes" value="263886"/>
+153,156c141,142
+< 			<stat name="rename_reads" value="800000"/> <!--lookup in renaming logic -->
+< 			<stat name="rename_writes" value="400000"/><!--update dest regs. renaming logic -->
+< 			<stat name="fp_rename_reads" value="200000"/>
+< 			<stat name="fp_rename_writes" value="100000"/>
+---
+> 			<stat name="rename_accesses" value="263886"/>
+> 			<stat name="fp_rename_accesses" value="263886"/>
+159,164c145,150
+< 			<stat name="inst_window_reads" value="400000"/>
+< 			<stat name="inst_window_writes" value="400000"/>
+< 			<stat name="inst_window_wakeup_accesses" value="800000"/>
+< 			<stat name="fp_inst_window_reads" value="200000"/>
+< 			<stat name="fp_inst_window_writes" value="200000"/>
+< 			<stat name="fp_inst_window_wakeup_accesses" value="400000"/>
+---
+> 			<stat name="inst_window_reads" value="263886"/>
+> 			<stat name="inst_window_writes" value="263886"/>
+> 			<stat name="inst_window_wakeup_accesses" value="263886"/>
+> 			<stat name="fp_inst_window_reads" value="263886"/>
+> 			<stat name="fp_inst_window_writes" value="263886"/>
+> 			<stat name="fp_inst_window_wakeup_accesses" value="263886"/>
+166,169c152,155
+< 			<stat name="int_regfile_reads" value="600000"/>
+< 			<stat name="float_regfile_reads" value="100000"/>
+< 			<stat name="int_regfile_writes" value="300000"/>
+< 			<stat name="float_regfile_writes" value="50000"/>
+---
+> 			<stat name="int_regfile_reads" value="1600000"/>
+> 			<stat name="float_regfile_reads" value="40000"/>
+> 			<stat name="int_regfile_writes" value="800000"/>
+> 			<stat name="float_regfile_writes" value="20000"/>
+176,181c162,167
+< 			<stat name="ialu_accesses" value="300000"/>			
+< 			<stat name="fpu_accesses" value="100000"/>
+< 			<stat name="mul_accesses" value="200000"/>
+< 			<stat name="cdb_alu_accesses" value="300000"/>
+< 			<stat name="cdb_mul_accesses" value="200000"/>
+< 			<stat name="cdb_fpu_accesses" value="100000"/>
+---
+> 			<stat name="ialu_accesses" value="800000"/>			
+> 			<stat name="fpu_accesses" value="10000"/>
+> 			<stat name="mul_accesses" value="100000"/>
+> 			<stat name="cdb_alu_accesses" value="1000000"/>
+> 			<stat name="cdb_mul_accesses" value="0"/>
+> 			<stat name="cdb_fpu_accesses" value="0"/>
+194,206c180,189
+< 			<stat name="IFU_duty_cycle" value="0.9"/>
+< 			<stat name="BR_duty_cycle" value="0.72"/><!--branch-->			
+< 			<stat name="LSU_duty_cycle" value="0.71"/>
+< 			<stat name="MemManU_I_duty_cycle" value="0.9"/>
+< 			<stat name="MemManU_D_duty_cycle" value="0.71"/>
+< 			<stat name="ALU_duty_cycle" value="0.76"/>
+< 			<!-- (.78*2+.71)/3 -->
+< 			<stat name="MUL_duty_cycle" value="0.82"/>
+< 			<stat name="FPU_duty_cycle" value="0.0"/>
+< 			<stat name="ALU_cdb_duty_cycle" value="0.76"/>
+< 			<stat name="MUL_cdb_duty_cycle" value="0.82"/>
+< 			<stat name="FPU_cdb_duty_cycle" value="0.0"/>
+< 			<param name="number_of_BPT" value="2"/>
+---
+> 			<stat name="IFU_duty_cycle" value="0.25"/>  	
+> 			<stat name="LSU_duty_cycle" value="0.25"/>
+> 			<stat name="MemManU_I_duty_cycle" value="0.25"/>
+> 			<stat name="MemManU_D_duty_cycle" value="0.25"/>
+> 			<stat name="ALU_duty_cycle" value="0.9"/>
+> 			<stat name="MUL_duty_cycle" value="0.5"/>
+> 			<stat name="FPU_duty_cycle" value="0.4"/>
+> 			<stat name="ALU_cdb_duty_cycle" value="0.9"/>
+> 			<stat name="MUL_cdb_duty_cycle" value="0.5"/>
+> 			<stat name="FPU_cdb_duty_cycle" value="0.4"/>
+210c193
+< 				<param name="local_predictor_entries" value="4"/>
+---
+> 				<param name="local_predictor_entries" value="1024"/>
+223c206
+< 				<stat name="total_accesses" value="200000"/>
+---
+> 				<stat name="total_accesses" value="100000"/>
+232,233c215,216
+< 				<param name="icache_config" value="32768,8,4,1,10,10,32,0"/>
+< 				<!-- the parameters are capacity,block_width, associativity, bank, throughput w.r.t. core clock, latency w.r.t. core clock,output_width, cache policy,  -->
+---
+> 				<param name="icache_config" value="16384,32,4,1,1,3,8,0"/>
+> 				<!-- the parameters are capacity,block_width, associativity, bank, throughput w.r.t. core clock, latency w.r.t. core clock,output_width, cache policy -->
+235c218
+< 				<param name="buffer_sizes" value="4, 4, 4,0"/>
+---
+> 				<param name="buffer_sizes" value="16, 16, 16,0"/>
+237c220
+< 				<stat name="read_accesses" value="200000"/>
+---
+> 				<stat name="read_accesses" value="100000"/>
+242,243c225,226
+< 				<param name="number_entries" value="64"/><!--dual threads-->
+< 				<stat name="total_accesses" value="400000"/>
+---
+> 				<param name="number_entries" value="64"/>
+> 				<stat name="total_accesses" value="100000"/>
+249,250c232,233
+< 				<param name="dcache_config" value="32768,8,4,1, 10,10, 32,1 "/>
+< 				<param name="buffer_sizes" value="4, 4, 4, 4"/>
+---
+> 				<param name="dcache_config" value="8192,16,4,1,1,3,16,0"/>
+> 				<param name="buffer_sizes" value="16, 16, 16, 16"/>
+252c235
+< 				<stat name="read_accesses" value="800000"/>
+---
+> 				<stat name="read_accesses" value="100000"/>
+258d240
+< 			<param name="number_of_BTB" value="2"/>
+261c243
+< 				<param name="BTB_config" value="4096,4,2, 2, 1,1"/> 
+---
+> 				<param name="BTB_config" value="8192,4,2,1, 1,3"/>
+263,264d244
+< 				<stat name="read_accesses" value="400000"/> <!--See IFU code for guideline -->
+< 				<stat name="write_accesses" value="0"/>
+270c250
+< 				<param name="Dir_config" value="2048,1,0,1, 4, 4, 8"/>
+---
+> 				<param name="Dir_config" value="2048,1,0,1, 4, 4,8"/>
+274c254
+< 			    <param name="clockrate" value="2000"/>
+---
+> 			    <param name="clockrate" value="1200"/>
+277c257,258
+< 				<param name="device_type" value="2"/>
+---
+> 				<param name="device_type" value="0"/>
+> 				<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+286c267
+< 			    <stat name="duty_cycle" value="0.1"/>
+---
+> 				<stat name="duty_cycle" value="0.45"/>	
+295c276
+< 			    <param name="clockrate" value="3400"/>
+---
+> 			    <param name="clockrate" value="1200"/>
+298a280
+> 				<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+307c289
+< 			    <stat name="duty_cycle" value="0.1"/>	
+---
+> 			    <stat name="duty_cycle" value="0.45"/>		
+311c293,294
+< 				<param name="L2_config" value="1048576,32, 8, 8, 8, 23, 32, 1"/> 
+---
+> 				<param name="L2_config" value="786432,64,16,1, 4,23, 64, 1"/>
+> 			    <!-- consider 4-way bank interleaving for Niagara 1 -->
+315c298
+< 				<param name="clockrate" value="3400"/>
+---
+> 				<param name="clockrate" value="1200"/>
+319,322c302,306
+< 				<stat name="read_accesses" value="200000"/>
+< 				<stat name="write_accesses" value="27276"/>
+< 				<stat name="read_misses" value="1632"/>
+< 				<stat name="write_misses" value="183"/>
+---
+> 				<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+> 				<stat name="read_accesses" value="100000"/>
+> 				<stat name="write_accesses" value="0"/>
+> 				<stat name="read_misses" value="0"/>
+> 				<stat name="write_misses" value="0"/>
+324c308
+< 			    <stat name="duty_cycle" value="1.0"/>	
+---
+> 			    <stat name="duty_cycle" value="0.2"/>	
+329,331c313,315
+< 				<param name="L3_config" value="16777216,64,16, 16, 16, 100,1"/>
+< 				<!-- the parameters are capacity,block_width, associativity,bank, throughput w.r.t. core clock, latency w.r.t. core clock,-->
+< 				<param name="clockrate" value="800"/>
+---
+> 				<param name="L3_config" value="1048576,64,16,1, 2,100, 64,1"/>
+> 				<!-- the parameters are capacity,block_width, associativity, bank, throughput w.r.t. core clock, latency w.r.t. core clock,output_width, cache policy -->
+> 				<param name="clockrate" value="3500"/>
+334a319
+> 				<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+337,338c322,323
+< 				<stat name="read_accesses" value="11824"/>
+< 				<stat name="write_accesses" value="11276"/>
+---
+> 				<stat name="read_accesses" value="58824"/>
+> 				<stat name="write_accesses" value="27276"/>
+342c327
+< 				<stat name="duty_cycle" value="1.0"/>	
+---
+> 	            <stat name="duty_cycle" value="0.35"/>	
+346,350c331,335
+< 			<param name="clockrate" value="2000"/>
+< 			<param name="type" value="0"/>
+< 			<!--0:bus, 1:NoC , for bus no matter how many nodes sharing the bus
+< 				at each time only one node can send req -->
+< 			<param name="horizontal_nodes" value="1"/>
+---
+> 			<param name="clockrate" value="1200"/>
+> 			<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+> 			<param name="type" value="1"/>
+> 			<!-- 1 NoC, O bus -->
+> 			<param name="horizontal_nodes" value="2"/>
+358,361c343,348
+< 			<param name="input_ports" value="1"/>
+< 			<param name="output_ports" value="1"/>
+< 			<!-- For bus the I/O ports should be 1 -->
+< 			<param name="flit_bits" value="64"/>
+---
+> 			<param name="input_ports" value="8"/>
+> 			<param name="output_ports" value="5"/>
+> 			<param name="virtual_channel_per_port" value="1"/>
+> 			<!-- input buffer; in classic routers only input ports need buffers -->
+> 			<param name="flit_bits" value="136"/>
+> 			<param name="input_buffer_entries_per_vc" value="2"/><!--VCs within the same ports share input buffers whose size is proportional to the number of VCs-->
+363,369c350,351
+< 			<!-- When multiple NOC present, one NOC will cover part of the whole chip. 
+< 				chip_coverage <=1 -->
+< 			<param name="link_routing_over_percentage" value="0.5"/>
+< 			<!-- Links can route over other components or occupy whole area.
+< 				by default, 50% of the NoC global links routes over other 
+< 				components -->
+< 			<stat name="total_accesses" value="100000"/>
+---
+> 			<!-- When multiple NOC present, one NOC will cover part of the whole chip. chip_coverage <=1 -->
+> 			<stat name="total_accesses" value="360000"/>
+371,372c353,355
+< 			<stat name="duty_cycle" value="0.2"/>
+< 		</component>		
+---
+> 			<stat name="duty_cycle" value="0.5"/>
+> 		</component>
+> 		
+378,382c361,366
+< 			<param name="type" value="1"/> <!-- 1: low power; 0 high performance -->
+< 			<param name="mc_clock" value="400"/><!--MHz-->
+< 			<param name="peak_transfer_rate" value="6400"/><!--MB/S-->
+< 			<param name="block_size" value="64"/><!--(B) the block size of last level cache, which is the unit for one memory burst transfer -->
+< 			<param name="number_mcs" value="0"/>
+---
+> 			<param name="type" value="0"/> <!-- 1: low power; 0 high performance -->
+> 			<param name="mc_clock" value="200"/><!--DIMM IO bus clock rate MHz DDR2-400 for Niagara 1--> 
+> 			<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+> 			<param name="peak_transfer_rate" value="3200"/><!--MB/S-->
+> 			<param name="block_size" value="64"/><!--B-->
+> 			<param name="number_mcs" value="4"/>
+385c369,370
+< 			<param name="number_ranks" value="0"/>
+---
+> 			<param name="number_ranks" value="2"/>
+> 			<param name="withPHY" value="0"/>
+392,395c377,379
+< 			<stat name="memory_accesses" value="66666"/>
+< 			<stat name="memory_reads" value="33333"/>
+< 			<stat name="memory_writes" value="33333"/>
+< 			<param name="withPHY" value="1"/>
+---
+> 			<stat name="memory_accesses" value="33333"/>
+> 			<stat name="memory_reads" value="16667"/>
+> 			<stat name="memory_writes" value="16667"/>
+398c382
+< 			Further trackdown can be easily added in later versions. -->  			
+---
+> 			Further track down can be easily added in later versions. -->  			
+405c389
+< 			<param name="type" value="1"/> <!-- 1: low power; 0 high performance -->
+---
+> 			<param name="type" value="0"/> <!-- 1: low power; 0 high performance -->
+406a391
+> 			<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+409c394
+< 			<stat name="total_load_perc" value="0.7"/> <!-- ratio of total achieved load to total achieve-able bandwidth  -->
+---
+> 			<stat name="total_load_perc" value="0.7"/> <!-- ratio of total achieve-able load to total achieve-able bandwidth  -->
+418c403
+< 			<param name="type" value="1"/> <!-- 1: low power; 0 high performance -->
+---
+> 			<param name="type" value="0"/> <!-- 1: low power; 0 high performance -->
+420a406
+> 			<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+424c410
+< 			<stat name="total_load_perc" value="0.7"/> <!-- Percentage of total achieved load to total achieve-able bandwidth  -->
+---
+> 			<stat name="total_load_perc" value="0.7"/> <!-- Percentage of total achived load to total achivable bandwidth  -->
+426c412
+< 			the average power per pcie controller or per channel. This is sufficient for most application. -->  			
+---
+> 			the average power per pcie controller or per channel. This is sufficent for most application. -->  			
+431a418
+> 			<param name="vdd" value="0"/><!-- 0 means using ITRS default vdd -->
+433c420
+< 			<param name="peak_transfer_rate" value="200"/><!--Per controller sustain-able peak rate MB/S -->
+---
+> 			<param name="peak_transfer_rate" value="200"/><!--Per controller sustainable reak rate MB/S -->
+435c422
+< 			<stat name="total_load_perc" value="0.7"/> <!-- Percentage of total achieved load to total achieve-able bandwidth  -->
+---
+> 			<stat name="total_load_perc" value="0.7"/> <!-- Percentage of total achived load to total achivable bandwidth  -->
+437c424
+< 			the average power per fc or per channel. This is sufficient for most application -->  			
+---
+> 			the average power per fc or per channel. This is sufficent for most application -->  			
